@@ -1,7 +1,10 @@
 import React from 'react';
 
 const ContactList = props => {
-
+  console.log(props.deleteContact);
+  const filtered = props.contacts.filter(
+    contact => contact.name.toLowerCase().includes(props.query.toLowerCase())
+  )
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <table>
@@ -14,7 +17,7 @@ const ContactList = props => {
           </tr>
         </thead>
         <tbody>
-          {props.contacts.map(contact => {
+          {filtered.map(contact => {
             return (
               <tr key={contact.id}>
                 <td>
@@ -27,7 +30,7 @@ const ContactList = props => {
                 <td>{contact.name}</td>
                 <td>{contact.popularity.toFixed(2)}</td>
                 <td>
-                  <button>
+                  <button onClick={() => props.deleteContact(contact.id)}>
                     Delete
                   </button>
                 </td>
